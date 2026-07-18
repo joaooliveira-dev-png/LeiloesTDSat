@@ -1,3 +1,6 @@
+
+import javax.swing.table.DefaultTableModel;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -11,11 +14,29 @@ public class VendaVIEW extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VendaVIEW.class.getName());
 
+    public void listarProdutosVendidos() {
+
+    DefaultTableModel modelo = (DefaultTableModel) tabelaVenda.getModel();
+    modelo.setNumRows(0);
+
+    ProdutosDAO produtosDAO = new ProdutosDAO();
+
+    for (ProdutosDTO p : produtosDAO.ListarProdutoVendido()) {
+        modelo.addRow(new Object[]{
+            p.getId(),
+            p.getNome(),
+            p.getValor(),
+            p.getStatus()
+        });
+    }
+}
+    
     /**
      * Creates new form VendaVIEW
      */
     public VendaVIEW() {
         initComponents();
+        listarProdutosVendidos();
     }
 
     /**
